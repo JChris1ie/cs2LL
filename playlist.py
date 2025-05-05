@@ -28,6 +28,13 @@ class Playlist:
         if self.head is None:
             self.head=newSong
             return
+        elif self.head is not None and self.tail is None:
+            nextSong=self.head
+            self.head=newSong
+            newSong.next=nextSong
+            nextSong.prev=self.head
+            self.tail=nextSong
+            return
         
         nextSong=self.head
         self.head=newSong
@@ -49,7 +56,12 @@ class Playlist:
             current=current.next
 
     def removeLastSong(self):
-        tail=self.tail.prev
+        if self.tail is None and self.head is None:
+            print("Playlist is empty")
+        elif self.tail is None and self.head is not None:
+            self.head=None
+                    
+        self.tail=self.tail.prev
         self.tail.next=None
 
     def display_playlist(self):
