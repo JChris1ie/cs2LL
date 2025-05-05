@@ -1,0 +1,101 @@
+import song
+
+class Playlist:
+    def __init__(self):
+        self.head=None
+        self.tail=None
+    
+    def isEmpty(self):
+        return self.head is None
+    
+    def addSongAtEnd(self,title,artist):
+        newSong=song.Song(title,artist)
+
+        if self.head is None:
+            self.head=newSong
+            return
+        
+        current=self.head
+        while current.next:
+            current=current.next
+        current.next=newSong
+        newSong.prev=current
+        self.tail=newSong
+
+    def addSongAtBeginning(self,title,artist):
+        newSong=song.Song(title,artist)
+
+        if self.head is None:
+            self.head=newSong
+            return
+        
+        nextSong=self.head
+        self.head=newSong
+        newSong.next=nextSong
+        nextSong.prev=self.head
+
+    def removeSongByTitle(self,title): # needs cases for head and tail removal
+        if self.head is None:
+            print("No songs in playlist")
+            return
+        
+        current=self.head
+        while current:
+            if current.title==title:
+                prev=current.prev
+                next=current.next
+                prev.next=next
+                next.prev=prev
+            current=current.next
+
+    def removeLastSong(self):
+        tail=self.tail.prev
+        self.tail.next=None
+
+    def display_playlist(self):
+        if self.head is None:
+            print('Playlist is empty')
+            return
+        
+        current=self.head
+        while current:
+            print(current)
+            current=current.next
+
+    def countSongs(self):
+        counter=0
+        if self.head is None:
+            print(f'Number of songs: {counter}')
+            return
+        
+        current=self.head
+        while current:
+            counter+=1
+            current=current.next
+
+        print(f'Number of songs: {counter}')
+
+    def findSong(self,title): # main should handle output
+        current=self.head
+        while current:
+            if current.title==title:
+                return True
+            current=current.next
+        return False
+
+    def reversePlaylist(self):
+        if self.head is None:
+            print('Playlist is empty')
+            return
+        
+        prev=None
+        current=self.head
+        while current:
+            next_node=current.next
+            current.next=prev
+            prev=current
+            current=next_node
+        
+        tail=self.tail
+        self.tail=self.head
+        self.head=tail
