@@ -4,6 +4,8 @@ class Playlist:
     def __init__(self):
         self.head=None
         self.tail=None
+
+        self.currentSong=None # Advanced feature variable
     
     def isEmpty(self):
         return self.head is None
@@ -41,7 +43,7 @@ class Playlist:
         newSong.next=nextSong
         nextSong.prev=self.head
 
-    def removeSongByTitle(self,title): # needs cases for head and tail removal
+    def removeSongByTitle(self,title):
         if self.head is None:
             print("No songs in playlist")
             return
@@ -69,6 +71,7 @@ class Playlist:
             print('Playlist is empty')
             return
         
+        print("--- Current Playlist ---")
         current=self.head
         while current:
             print(current)
@@ -104,6 +107,7 @@ class Playlist:
         current=self.head
         while current:
             next_node=current.next
+            current.prev=current.next
             current.next=prev
             prev=current
             current=next_node
@@ -111,3 +115,28 @@ class Playlist:
         tail=self.tail
         self.tail=self.head
         self.head=tail
+
+    '''------------------------ Advanced Features ------------------------'''
+
+    def playCurrent(self):
+        if self.currentSong is None:
+            self.currentSong=self.head
+        print(self.currentSong)
+    
+    def nextTrack(self):
+        if self.currentSong is None:
+            self.currentSong=self.head
+        
+        if self.tail.artist==self.currentSong.artist and self.tail.title==self.currentSong.title:
+            self.currentSong=self.head
+        else:
+            self.currentSong=self.currentSong.next
+    
+    def previousTrack(self):
+        if self.currentSong is None:
+            self.currentSong=self.head
+
+        if self.head.artist==self.currentSong.artist and self.head.title==self.currentSong.title:
+            self.currentSong=self.tail
+        else:
+            self.currentSong=self.currentSong.prev
