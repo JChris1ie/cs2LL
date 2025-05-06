@@ -14,6 +14,10 @@ print('8. Reverse Playlist')
 print('9. Play current song')
 print('10. Skip to next song')
 print('11. Skip to previous song')
+print('12. Save current playlist')
+print('13. Load playlist by name')
+print('14. Delete playlist from storage')
+print('15. Clear current playlist')
 print('0. Exit')
 print()
 
@@ -23,16 +27,15 @@ while True:
         case '0':
             break
         case '1':
-            myPlaylist.addSongAtEnd(input('Enter song title: '),input('Enter song artist: '))
+            myPlaylist.addSongAtEnd(input('Enter song title: '),input('Enter song artist: '),input('Enter length in seconds: '))
             print('Song added')
             print()
         case '2':
-            myPlaylist.addSongAtBeginning(input('Enter song title: '),input('Enter song artist: '))
+            myPlaylist.addSongAtBeginning(input('Enter song title: '),input('Enter song artist: '),input('Enter length in seconds: '))
             print('Song added')
             print()
         case '3':
             myPlaylist.removeSongByTitle(input('Enter song title: '))
-            print('Song removed')
             print()
         case '4':
             myPlaylist.removeLastSong()
@@ -66,8 +69,21 @@ while True:
             myPlaylist.previousTrack()
             myPlaylist.playCurrent()
             print()
-        case '22':
-            myPlaylist.testReverse()    
+        case '12':
+            myPlaylist.saveToFile(input('Enter playlist name: '))
+            print('Playlist saved')
+            print()
+        case '13':
+            myPlaylist.loadFromFile(input('Enter playlist name: '))
+            print('Playlist loaded')
+            print()
+        case '14':
+            myPlaylist.deletePlaylist(input('Enter playlist name: '))
+            print()
+        case '15':
+            myPlaylist.clearCurrentPlaylist()
+            print('Cleared playlist')
+            print()
         case _:
             print("Enter a number")
             print()

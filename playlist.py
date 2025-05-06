@@ -1,4 +1,6 @@
 import song
+import csv
+import os
 
 class Playlist:
     def __init__(self):
@@ -6,12 +8,12 @@ class Playlist:
         self.tail=None
 
         self.currentSong=None # Advanced feature variable
-    
+
     def isEmpty(self):
         return self.head is None
     
-    def addSongAtEnd(self,title,artist):
-        newSong=song.Song(title,artist)
+    def addSongAtEnd(self,title,artist,duration):
+        newSong=song.Song(title,artist,duration)
 
         if self.head is None:
             self.head=newSong
@@ -24,8 +26,8 @@ class Playlist:
         newSong.prev=current
         self.tail=newSong
 
-    def addSongAtBeginning(self,title,artist):
-        newSong=song.Song(title,artist)
+    def addSongAtBeginning(self,title,artist,duration):
+        newSong=song.Song(title,artist,duration)
 
         if self.head is None:
             self.head=newSong
@@ -55,7 +57,9 @@ class Playlist:
                 next=current.next
                 prev.next=next
                 next.prev=prev
+                print('Song removed')
             current=current.next
+        print(f'Song "{title}" not found')
 
     def removeLastSong(self):
         if self.tail is None and self.head is None:
@@ -144,8 +148,36 @@ class Playlist:
 
     ''' Playlist Saving '''
 
-    def saveToFile(self):
-        pass
+    def saveToFile(self,filename):
+        filename=filename+'.csv'
+        with open(filename, mode='w',newline='',encoding='utf-8') as file:
+            writer = csv.writer(file)
+            writer.writerow(['Title', 'Artist', 'Duration'])
+            current=self.head
+            while current:
+                writer.writerow([current.title,current.artist,current.duration])
+                current=current.next
 
-    def loadFromFile(self):
-        pass
+    def loadFromFile(self,filename):
+        filename=filename+'.csv'
+        with open(filename,mode='r',encoding='utf-8') as file:
+            reader=csv.DictReader(file)
+            for row in reader:
+                self.addSongAtEnd(row['Title'],row['Artist'],int(row['Duration']))
+
+    ''' Extra for playlist file management'''
+
+    def deletePlaylist(self,filename):
+        filename=filename+'.csv'
+        try:
+            os.remove(filename)
+            print('Playlist deleted')
+        except:
+            print("Playlist does not exist")
+
+    ''' Extra for testing and QOL'''
+    
+    def clearCurrentPlaylist(self):
+        self.head=None
+        self.tail=None
+        self.currentSong=None
