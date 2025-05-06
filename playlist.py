@@ -118,6 +118,7 @@ class Playlist:
 
     '''------------------------ Advanced Features ------------------------'''
 
+    ''' Play Mode '''
     def playCurrent(self):
         if self.currentSong is None:
             self.currentSong=self.head
@@ -140,3 +141,11 @@ class Playlist:
             self.currentSong=self.tail
         else:
             self.currentSong=self.currentSong.prev
+
+    ''' Playlist Saving '''
+
+    def saveToFile(self):
+        pass
+
+    def loadFromFile(self):
+        pass
