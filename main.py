@@ -23,8 +23,10 @@ print()
 
 while True:
     user=input('Choose an option: ')
-    match user:
+    match user: # case switch used for all input cases
         case '0':
+            print("Thank you for using this program.")
+            print()
             break
         case '1':
             myPlaylist.addSongAtEnd(input('Enter song title: '),input('Enter song artist: '),input('Enter length in seconds: '))
@@ -35,11 +37,10 @@ while True:
             print('Song added')
             print()
         case '3':
-            myPlaylist.removeSongByTitle(input('Enter song title: '))
+            myPlaylist.removeSongByTitle(input('Enter song title to remove: '))
             print()
         case '4':
             myPlaylist.removeLastSong()
-            print('Song removed')
             print()
         case '5':
             myPlaylist.display_playlist()
@@ -48,15 +49,14 @@ while True:
             myPlaylist.countSongs()
             print()
         case '7':
-            output=myPlaylist.findSong(input('Enter song title: '))
+            output=myPlaylist.findSong(input('Enter song title to find: '))
             if output:
-                print('Song found')
+                print(f'Song found: {output}')
             else:
                 print('Song not found')
             print()
         case '8':
             myPlaylist.reversePlaylist()
-            print('playlist reversed')
             print()
         case '9':
             myPlaylist.playCurrent()
@@ -70,20 +70,18 @@ while True:
             myPlaylist.playCurrent()
             print()
         case '12':
-            myPlaylist.saveToFile(input('Enter playlist name: '))
+            myPlaylist.saveToFile(input('Enter playlist name to save as: '))
             print('Playlist saved')
             print()
         case '13':
-            myPlaylist.loadFromFile(input('Enter playlist name: '))
-            print('Playlist loaded')
+            myPlaylist.loadFromFile(input('Enter playlist name to load: '))
             print()
         case '14':
-            myPlaylist.deletePlaylist(input('Enter playlist name: '))
+            myPlaylist.deletePlaylist(input('Enter playlist name to delete: '))
             print()
         case '15':
             myPlaylist.clearCurrentPlaylist()
-            print('Cleared playlist')
             print()
-        case _:
-            print("Enter a number")
+        case _: # catchall case for anything that is not a case
+            print("ERROR: please enter a number")
             print()
