@@ -23,7 +23,7 @@ Helped me to come to the idea of checking each current track's title and artist 
 "how can i save a python linked list of song objects with title, artist,
 duration attributes to a csv file and load those objects from the csv to a linked list again"
 
-Helped me to use the csv module in python. Without using this prompt, I would have just put in each entry by writing the data in a file normally, but the csv module made that process easier with the csv reader and writer as well as the writerow and read functions. 
+Helped me to use the csv module in python. Without using this prompt, I would have just put in each entry by writing the data in a file normally and just mimicing the csv format, but the csv module made that process easier with the csv reader and writer as well as the writerow and read functions. 
 
 ## Extras
 
